@@ -3,16 +3,12 @@ use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
-    println!("Guess the number!");
+    println!("Guess the random number in the range [1,100]!");
 
     let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    println!("The secret number is: {}", secret_number);
-
-
-
     loop {
-        println!("Please input your guess.");
+        println!("Please input your guess (q for quit).");
 
         let mut guess = String::new();
 
@@ -20,9 +16,18 @@ fn main() {
             .read_line(&mut guess)
             .expect("failed to read line");
 
-        let guess: u32 = match guess.trim().parse() {
+        let guess = guess.trim();
+
+        let guess: u32 = match guess.parse() {
             Ok(num) => num,
-            Err(_) => continue,
+            Err(_) => {
+                if guess.eq("q") {
+                    println!("Game stopped");
+                    break;
+                } else {
+                    continue;
+                }
+            },
         };
 
 
