@@ -18,8 +18,11 @@ fn get_upper_bound() -> u32 {
 
         let upper_bound: u32 = match difficulty.trim() {
             "e" => 10,
+            "easy" => 10,
             "m" => 100,
+            "medium" => 100,
             "h" => 1000,
+            "hard" => 1000,
             _ => {
                 println!("invalid input (choose e, m or h)");
                 continue;
@@ -52,7 +55,7 @@ fn main() {
             Ok(num) => num,
             Err(_) => {
                 if guess.eq("q") {
-                    println!("Game stopped");
+                    println!("Game quit");
                     break;
                 } else {
                     continue;
@@ -67,10 +70,10 @@ fn main() {
             Ordering::Less => println!("Too small"),
             Ordering::Greater => println!("Too big!"),
             Ordering::Equal => {
-                println!("You win");
+                println!("You win!");
+                println!("The number was {}", secret_number);
                 break;
             },
         }
     }
-
 }
